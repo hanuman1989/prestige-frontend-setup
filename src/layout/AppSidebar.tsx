@@ -9,6 +9,7 @@ import { useSidebar } from "../context/SidebarContext";
 import {
   ChevronDownIcon,
   GridIcon,
+  MapPinIcon,
   HorizontaLDots,
   UserCircleIcon,
 } from "../icons/index";
@@ -43,6 +44,11 @@ const navItems: NavItem[] = [
     icon: <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="3" /><circle cx="8" cy="8" r="1.5" /><path d="m3 17 6-6 4 4 3-3 5 5" /></svg>,
     key: "categories",
     path: "/admin/categories",
+  },
+  {
+    icon: <MapPinIcon />,
+    key: "destinations",
+    path: "/admin/destinations",
   },
   {
     icon: <UserCircleIcon />,

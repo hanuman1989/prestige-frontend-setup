@@ -141,7 +141,7 @@ function formHarness({ category = null, save } = {}) {
     "react-hot-toast": { __esModule: true, default: { success: (message) => notifications.push(message), error: (message) => notifications.push(message) } },
     "@/icons": { ChevronLeftIcon: () => React.createElement("svg") },
     "@/components/admin/common/PageBreadCrumb": { __esModule: true, default: ({ pageTitle }) => React.createElement("h1", null, pageTitle) },
-    "./CategoryImage": { __esModule: true, default: ({ src, alt }) => React.createElement("img", { src, alt }) },
+    "@/components/admin/common/ImageUpload": { __esModule: true, default: ({ existingImageUrl, label }) => React.createElement("img", { src: existingImageUrl, alt: label }), ImagePreview: ({ src, alt }) => React.createElement("img", { src, alt }) },
   });
   function render() { index = 0; tree = exports.default({ category }); return tree; }
   render();
@@ -260,7 +260,7 @@ test("category table renders boolean statuses and public image URLs without a st
     "@/i18n/navigation": { Link: ({ href, children }) => React.createElement("a", { href }, children) },
     "@/icons": { MoreDotIcon: wrapper, PencilIcon: wrapper, PlusIcon: wrapper, TrashBinIcon: wrapper },
     "@/components/admin/ui/table": { Table: wrapper, TableBody: wrapper, TableCell: wrapper, TableHeader: wrapper, TableRow: wrapper },
-    "./CategoryImage": { __esModule: true, default: ({ src, alt }) => React.createElement("img", { src, alt }) },
+    "@/components/admin/common/ImageUpload": { __esModule: true, default: ({ existingImageUrl, label }) => React.createElement("img", { src: existingImageUrl, alt: label }), ImagePreview: ({ src, alt }) => React.createElement("img", { src, alt }) },
   }).default;
   const html = renderToStaticMarkup(React.createElement(table, {
     categories: [
