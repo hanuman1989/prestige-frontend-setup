@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/admin/ui/table";
-import CategoryImage from "./CategoryImage";
+import { ImagePreview } from "@/components/admin/common/ImageUpload";
 
 export function shortDescription(value) {
   return String(value ?? "")
@@ -78,7 +78,7 @@ export default function CategoryTable({
                 >
                   <TableCell className={cellClasses}>
                     <div className="flex min-w-52 items-center gap-4">
-                      <CategoryImage
+                      <ImagePreview
                         src={category.image_url}
                         alt={category.title}
                         className="h-12 w-20 shrink-0 rounded-lg object-cover"

@@ -7,7 +7,7 @@ import APIs from "@/lib/apis";
 import { useRouter } from "@/i18n/navigation";
 import { ChevronLeftIcon } from "@/icons";
 import PageBreadcrumb from "@/components/admin/common/PageBreadCrumb";
-import CategoryImage from "./CategoryImage";
+import ImageUpload from "@/components/admin/common/ImageUpload";
 
 const inputClasses =
   "mt-2 min-h-11 w-full rounded-md border border-[#dce3f1] bg-white px-3 py-2.5 text-sm text-[#0b164d] outline-none focus:border-blue-500 focus:ring-3 focus:ring-blue-500/10 aria-invalid:border-red-500 placeholder:text-[#8a9ac0] disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200";
@@ -56,13 +56,12 @@ export default function CategoryForm({ category = null }) {
   const submitRef = useRef(false);
   const [slugCustomized, setSlugCustomized] = useState(isEditing);
   const serverFocusRef = useRef(null);
-  const [preview, setPreview] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const {
     register,
     handleSubmit,
     setValue,
     setError,
-    clearErrors,
     setFocus,
     formState: { errors, isSubmitting },
   } = useForm({
@@ -80,12 +79,6 @@ export default function CategoryForm({ category = null }) {
     reValidateMode: "onChange",
   });
 
-  useEffect(
-    () => () => {
-      if (preview) URL.revokeObjectURL(preview);
-    },
-    [preview],
-  );
   useEffect(() => {
     if (!isSubmitting && serverFocusRef.current) {
       setFocus(serverFocusRef.current);
@@ -94,6 +87,7 @@ export default function CategoryForm({ category = null }) {
   }, [isSubmitting, setFocus]);
 
   function validateImage(files) {
+    if (files?.length > 1) return "Choose one image.";
     const file = files?.[0];
     if (!file) return true;
     if (
@@ -106,30 +100,12 @@ export default function CategoryForm({ category = null }) {
     return true;
   }
 
-  function chooseImage(file) {
-    if (file && validateImage([file]) !== true) return;
-    setPreview(file ? URL.createObjectURL(file) : "");
-  }
-
-  function dropImage(event) {
-    event.preventDefault();
-    if (isSubmitting) return;
-    if (event.dataTransfer.files.length !== 1) {
-      setError("image", {
-        type: "validate",
-        message: "Choose one category image.",
-      });
-      return;
-    }
-    const file = event.dataTransfer.files[0];
-    setValue("image", [file], { shouldValidate: true, shouldDirty: true });
-    chooseImage(file);
-  }
-
-  function clearImage() {
-    setValue("image", [], { shouldValidate: false, shouldDirty: true });
-    setPreview("");
-    clearErrors("image");
+  function chooseImage(files) {
+    if (submitRef.current) return false;
+    setValue("image", files, { shouldValidate: true, shouldDirty: true });
+    if (validateImage(files) !== true) return false;
+    setSelectedFile(files[0] ?? null);
+    return true;
   }
 
   function backToCategories() {
@@ -200,7 +176,6 @@ export default function CategoryForm({ category = null }) {
     }
   }
 
-  const currentImage = preview || category?.image_url || "";
   const breadcrumbs = [
     { label: "Home", href: "/admin/dashboard" },
     { label: "Categories", href: "/admin/categories" },
@@ -439,69 +414,16 @@ export default function CategoryForm({ category = null }) {
           </div>
           <div className="min-w-0 space-y-5">
             <Card title="Category Image">
-              <div
-                onDragOver={(event) => event.preventDefault()}
-                onDrop={dropImage}
-                className="relative flex min-h-56 flex-col items-center justify-center rounded-lg border border-dashed border-blue-200 bg-[#f8faff] p-4 text-center focus-within:ring-3 focus-within:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-800/40"
-              >
-                {currentImage ? (
-                  <CategoryImage
-                    src={currentImage}
-                    alt={category?.title || "Category image preview"}
-                    className="mb-4 max-h-48 w-full rounded-lg object-contain"
-                  />
-                ) : (
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 48 48"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="mb-4 size-12 text-[#53699b]"
-                  >
-                    <path d="M13 33a10 10 0 0 1-1-20 13 13 0 0 1 25-1 10 10 0 0 1-1 21M24 42V22m-8 8 8-8 8 8" />
-                  </svg>
-                )}
-                <label
-                  htmlFor="category-image"
-                  className="cursor-pointer text-sm font-medium"
-                >
-                  {currentImage ? "Replace image" : "Click to upload"}
-                  <span className="font-normal text-[#53699b] dark:text-gray-400">
-                    {" "}
-                    or drag and drop
-                  </span>
-                </label>
-                <p
-                  id="category-image-hint"
-                  className="mt-2 text-xs text-[#53699b] dark:text-gray-400"
-                >
-                  PNG, JPG or WebP. Up to 2 MB (optional)
-                </p>
-                <input
-                  {...register("image", {
-                    validate: validateImage,
-                    onChange: (event) => chooseImage(event.target.files?.[0]),
-                  })}
-                  id="category-image"
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  aria-required="false"
-                  aria-invalid={Boolean(errors.image)}
-                  aria-describedby={`category-image-hint${errors.image ? " category-image-error" : ""}`}
-                  className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-                />
-              </div>
-              <FieldError name="image" error={errors.image} />
-              {preview && (
-                <button
-                  type="button"
-                  onClick={clearImage}
-                  className="text-sm text-red-600 hover:underline dark:text-red-400"
-                >
-                  Discard selected image
-                </button>
-              )}
+              <ImageUpload
+                id="category-image"
+                label="Category image"
+                existingImageUrl={category?.image_url}
+                selectedFile={selectedFile}
+                onChange={chooseImage}
+                inputProps={register("image", { validate: validateImage })}
+                error={errors.image}
+                disabled={isSubmitting}
+              />
             </Card>
             <Card title="Visibility">
               <div>
