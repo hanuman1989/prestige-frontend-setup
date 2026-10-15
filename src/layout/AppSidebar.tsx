@@ -8,10 +8,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSidebar } from "../context/SidebarContext";
 import {
   ChevronDownIcon,
+  CarIcon,
+  FolderIcon,
   GridIcon,
   MapPinIcon,
+  BoxIconLine,
   HorizontaLDots,
   UserCircleIcon,
+  BoxCubeIcon,
+  TableIcon,
+  PlugInIcon,
 } from "../icons/index";
 
 type NavItem = {
@@ -41,7 +47,21 @@ const navItems: NavItem[] = [
     path: "/admin/admin-users",
   },
   {
-    icon: <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="3" /><circle cx="8" cy="8" r="1.5" /><path d="m3 17 6-6 4 4 3-3 5 5" /></svg>,
+    icon: (
+      <svg
+        aria-hidden="true"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
+        <rect x="3" y="3" width="18" height="18" rx="3" />
+        <circle cx="8" cy="8" r="1.5" />
+        <path d="m3 17 6-6 4 4 3-3 5 5" />
+      </svg>
+    ),
     key: "categories",
     path: "/admin/categories",
   },
@@ -51,9 +71,27 @@ const navItems: NavItem[] = [
     path: "/admin/destinations",
   },
   {
+    icon: <BoxIconLine />,
+    key: "packages",
+    path: "/admin/packages",
+  },
+  {
     icon: <UserCircleIcon />,
     key: "userProfile",
     path: "/admin/profile",
+  },
+];
+
+const carItems: NavItem[] = [
+  {
+    icon: <FolderIcon aria-hidden="true" />,
+    key: "carCategories",
+    path: "/admin/car-categories",
+  },
+  {
+    icon: <CarIcon aria-hidden="true" />,
+    key: "cars",
+    path: "/admin/cars",
   },
 ];
 
@@ -62,10 +100,7 @@ const AppSidebar: React.FC = () => {
   const pathname = usePathname();
   const t = useTranslations("sidebar");
 
-  const renderMenuItems = (
-    navItems: NavItem[],
-    menuType: "main" | "support" | "others",
-  ) => (
+  const renderMenuItems = (navItems: NavItem[], menuType: "main" | "cars") => (
     <ul className="flex flex-col gap-1">
       {navItems.map((nav, index) => (
         <li key={nav.key}>
@@ -211,7 +246,7 @@ const AppSidebar: React.FC = () => {
   );
 
   const [openSubmenu, setOpenSubmenu] = useState<{
-    type: "main" | "support" | "others";
+    type: "main" | "cars";
     index: number;
   } | null>(null);
   const [subMenuHeight, setSubMenuHeight] = useState<Record<string, number>>(
@@ -221,19 +256,22 @@ const AppSidebar: React.FC = () => {
 
   // const isActive = (path: string) => path === pathname;
 
-  const isActive = useCallback((path: string) => path === pathname || pathname.startsWith(`${path}/`), [pathname]);
+  const isActive = useCallback(
+    (path: string) => path === pathname || pathname.startsWith(`${path}/`),
+    [pathname],
+  );
 
   useEffect(() => {
     // Check if the current path matches any submenu item
     let submenuMatched = false;
-    ["main", "support", "others"].forEach((menuType) => {
-      const items = navItems;
+    ["main", "cars"].forEach((menuType) => {
+      const items = menuType === "main" ? navItems : carItems;
       items.forEach((nav, index) => {
         if (nav.subItems) {
           nav.subItems.forEach((subItem) => {
             if (isActive(subItem.path)) {
               setOpenSubmenu({
-                type: menuType as "main" | "support" | "others",
+                type: menuType as "main" | "cars",
                 index,
               });
               submenuMatched = true;
@@ -262,10 +300,7 @@ const AppSidebar: React.FC = () => {
     }
   }, [openSubmenu]);
 
-  const handleSubmenuToggle = (
-    index: number,
-    menuType: "main" | "support" | "others",
-  ) => {
+  const handleSubmenuToggle = (index: number, menuType: "main" | "cars") => {
     setOpenSubmenu((prevOpenSubmenu) => {
       if (
         prevOpenSubmenu &&
@@ -347,6 +382,23 @@ const AppSidebar: React.FC = () => {
                 )}
               </h2>
               {renderMenuItems(navItems, "main")}
+            </div>
+
+            <div>
+              <h2
+                className={`mb-4 flex text-xs leading-5 text-gray-400 uppercase ${
+                  !isExpanded && !isHovered
+                    ? "xl:justify-center"
+                    : "justify-start"
+                }`}
+              >
+                {isExpanded || isHovered || isMobileOpen ? (
+                  t("groups.cars")
+                ) : (
+                  <HorizontaLDots />
+                )}
+              </h2>
+              {renderMenuItems(carItems, "cars")}
             </div>
 
             <div></div>

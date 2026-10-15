@@ -5,6 +5,8 @@ import frontUsersAPI from "./admin/users";
 import frontendAuthAPI from "./frontendAuth";
 import contactInquiryAPI from "./contactInquiry";
 import destinationAPI from "./admin/destinations";
+import packageAPI from "./admin/packages";
+import carRentalAPI from "./admin/carRental";
 
 const APIs = {
   frontend: {
@@ -17,6 +19,8 @@ const APIs = {
     users: frontUsersAPI,
     adminAuth: adminAuthAPI,
     destinations: destinationAPI,
+    packages: packageAPI,
+    carRental: carRentalAPI,
   },
 };
 
