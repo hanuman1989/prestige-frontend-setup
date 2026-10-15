@@ -13,7 +13,8 @@
     "groups": {
       "menu": "Menu",
       "support": "Support",
-      "others": "Others"
+      "others": "Others",
+      "cars": "Car Rentals"
     },
     "badges": {
       "new": "new",
@@ -24,6 +25,7 @@
       "adminUsers": "Admin Users",
       "categories": "Categories",
       "destinations": "Destinations",
+      "packages": "Packages",
       "ecommerceHome": "Ecommerce",
       "analytics": "Analytics",
       "marketing": "Marketing",
@@ -123,7 +125,9 @@
       "supportReply": "Support Reply",
       "email": "Email",
       "inbox": "Inbox",
-      "inboxDetails": "Details"
+      "inboxDetails": "Details",
+      "carCategories": "Car Categories",
+      "cars": "Cars"
     },
     "widget": {
       "title": "#1 Tailwind CSS Dashboard",
