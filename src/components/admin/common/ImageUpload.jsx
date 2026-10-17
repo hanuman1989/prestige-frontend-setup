@@ -1,31 +1,9 @@
 "use client";
 
-import Image from "next/image";
+import ImagePreview from "@/components/common/ImagePreview";
 import { useEffect, useRef, useState } from "react";
 
-// Use the backend's public URL, never a guessed storage path.
-export function getImageUrl(value) {
-  if (typeof value !== "string") return "";
-  if (value.startsWith("/") && !value.startsWith("//")) return value;
-  try {
-    const url = new URL(value);
-    return ["http:", "https:", "blob:"].includes(url.protocol) ? value : "";
-  } catch {
-    return "";
-  }
-}
-
-export function ImagePreview({ src, alt, className }) {
-  const url = getImageUrl(src);
-  const [failedUrl, setFailedUrl] = useState("");
-  return url && failedUrl !== url ? (
-    <Image key={url} src={url} alt={alt} width={320} height={180} unoptimized onError={() => setFailedUrl(url)} className={className} />
-  ) : (
-    <span role="img" aria-label="No image available" className={`${className} flex items-center justify-center bg-blue-50 text-[#53699b] dark:bg-gray-800`}>
-      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-6"><rect x="3" y="3" width="18" height="18" rx="3" /><circle cx="8" cy="8" r="1.5" /><path d="m3 17 6-6 4 4 3-3 5 5" /></svg>
-    </span>
-  );
-}
+export { ImagePreview, getImageUrl } from "@/components/common/ImagePreview";
 
 export default function ImageUpload({ id, label, existingImageUrl, selectedFile, onChange, inputProps, error, disabled }) {
   const inputRef = useRef(null);

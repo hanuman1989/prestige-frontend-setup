@@ -1,0 +1,691 @@
+/*********************************/
+/*         Menu                  */
+/*===============================*/
+#topnav {
+    @apply fixed inset-s-0 inset-e-0 top-0 z-999 bg-transparent border-0 transition-all duration-500 ease-in-out;
+    .logo {
+        @apply float-start! text-slate-900! dark:text-white!;
+        .l-dark {
+            @apply hidden;
+        }
+        .l-light {
+            @apply inline-block;
+        }
+        &:focus {
+          @apply outline-none;
+        }
+    }
+    .has-submenu{
+      @apply relative;
+      &.active {
+        a {
+          @apply text-white dark:text-slate-900;
+        }
+        .submenu {
+          li{
+            &.active {
+              > a {
+                @apply text-primary! dark:text-primary!;
+              }
+            }
+          }
+        }
+        &.active {
+          .menu-arrow {
+            @apply border-t-transparent! border-e-primary! border-b-primary! border-s-transparent!;
+          }
+        }
+      }
+      .submenu {
+        .submenu-arrow {
+          @apply absolute border-[3px] inset-e-5 top-3.75 border-t-transparent border-e-slate-900 dark:border-e-white border-b-slate-900 dark:border-b-white border-s-transparent rounded-xs inline-block ltr:-rotate-45 rtl:rotate-45;
+        }
+        .has-submenu {
+          &:hover,
+          &.active {
+            > .submenu-arrow {
+              @apply border-t-transparent border-e-primary border-b-primary border-s-transparent;
+            }
+          }
+          .submenu {
+            .has-submenu{
+              &:hover {
+                .submenu-arrow {
+                  @apply border-t-transparent border-e-primary border-b-primary border-s-transparent;
+                }
+                > .submenu-arrow {
+                  @apply border-t-transparent border-e-primary border-b-primary border-s-transparent;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .navbar-toggle {
+      @apply border-0 relative p-0 m-0 cursor-pointer;
+      .lines {
+        @apply w-6.25 block relative h-4.5 mt-7.5 ms-2.5 me-0 mb-6.5;
+      }
+      span {
+        transition: transform 0.5s ease;
+        @apply h-0.5 w-full bg-slate-900 dark:bg-white block mb-1.25;
+        &:last-child {
+          @apply mb-0;
+        }
+      }
+      &.open {
+        span {
+          @apply absolute;
+          &:first-child {
+            @apply top-1.5 rotate-45;
+          }
+          &:nth-child(2) {
+            @apply invisible;
+          }
+          &:last-child {
+            @apply w-full top-1.5 -rotate-45;
+          }
+          &:hover {
+            @apply bg-primary;
+          }
+        }
+      }
+      &:hover, &:focus,
+      .navigation-menu > li > a:hover {
+        @apply bg-transparent;
+      }
+    }
+    .buy-button {
+      @apply float-end leading-18.5;
+      > li {
+        @apply leading-[initial];
+      }
+      .login-btn-primary,
+      .btn-icon-dark {
+        @apply hidden;
+      }
+      .login-btn-light,
+      .btn-icon-light {
+        @apply inline-block;
+      }
+      .search-bar {
+        .menu-search {
+          form {
+            @apply relative;
+          }
+        }
+        .searchform {
+          @apply after:absolute! after:inset-e-3.5! after:top-3.5! after:text-xl! after:leading-5! after:pointer-events-none!;
+          input[type=text] {
+            @apply shadow-none! py-2.5! pe-10.5! ps-3! h-11! text-sm! block! outline-none!;
+          }
+          input[type=submit] {
+            @apply hidden;
+          }
+          &:after {
+            content: "\f0d1";
+            font-family: "remixicon";
+          }
+        }
+      }
+    }
+    .buy-button,
+    .buy-menu-btn {
+      .dropdown {
+        .dropdown-toggle {
+          @apply after:hidden;
+        }
+      }
+    }
+    .navigation-menu {
+      @apply list-none m-0 p-0;
+      > li {
+        @apply float-start block relative my-0 mx-2.5;
+        > a {
+          @apply block text-slate-900 dark:text-white text-base bg-transparent font-medium tracking-[1px] leading-6 font-dm px-3.75;
+          &:hover, 
+          &:active {
+            @apply text-primary;
+          }
+        }
+        &:hover, 
+        &.active{
+          > a {
+            @apply text-primary! dark:text-primary!;
+          }
+        }
+        .submenu.megamenu {
+          li {
+            .megamenu-head {
+              @apply py-2.5! px-5! whitespace-nowrap! text-xs! uppercase! tracking-[0.04em]! font-semibold! text-slate-400!;
+            }
+          }
+        }
+        .submenu {
+          li {
+            @apply relative mx-0;
+          }
+        }
+      }
+      .has-submenu {
+        .menu-arrow {
+          @apply border-[3px] border-t-transparent border-e-slate-900 dark:border-e-white border-b-slate-900 dark:border-b-white border-s-transparent rounded-xs inline-block ltr:rotate-45 rtl:-rotate-45 absolute transition-all duration-500 inset-e-0 top-8.25;
+        }
+      }
+    }
+    .menu-extras {
+      @apply float-end;
+    }
+    &.scroll {
+      @apply bg-white dark:bg-slate-900 border-none shadow;
+      .navigation-menu {
+        > li {
+          > a {
+            @apply text-slate-900 dark:text-white;
+          }
+          > .menu-arrow {
+            @apply border-t-transparent border-e-slate-900 dark:border-e-white border-b-slate-900 dark:border-b-white border-s-transparent;
+          }
+          &:hover, 
+          &.active{
+            > a {
+              @apply text-primary;
+            }
+            > .menu-arrow {
+              @apply border-t-transparent! border-e-primary! border-b-primary! border-s-transparent!;
+            }
+          }
+        }
+      }
+    }
+    &.defaultscroll{
+      &.dark-menubar {
+        .logo {
+          @apply leading-17.5;
+        }
+      }
+      &.scroll {
+        .logo {
+          @apply leading-15.5;
+        }
+      }
+    }
+    &.nav-sticky {
+      @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-gray-800;
+      .navigation-menu{
+        &.nav-light {
+          > li {
+            > a {
+              @apply text-slate-900 dark:text-white;
+            }
+            &.active {
+              > a {
+                @apply text-primary! dark:text-primary!;
+              }
+            }
+            &:hover, 
+            &.active{
+              > .menu-arrow {
+                @apply border-t-transparent! border-e-primary! dark:border-e-primary! border-b-primary! dark:border-b-primary! border-s-transparent!;
+              }
+            }
+            
+            &:hover, 
+            &.active {
+              > a {
+                @apply text-primary! dark:text-primary!;
+              }
+            }
+          }
+          .has-submenu {
+            .menu-arrow {
+              @apply border-t-transparent! border-e-slate-900! dark:border-e-white! border-b-slate-900! dark:border-b-white! border-s-transparent!;
+            }
+          }
+          
+        }
+      }
+      &.tagline-height {
+        @apply top-0!;
+      }
+      
+      .buy-button {
+        .login-btn-primary,
+        .btn-icon-dark {
+          @apply inline-block;
+        }
+        .login-btn-light,
+        .btn-icon-light {
+          @apply hidden;
+        }
+        .search-dropdown {
+          .dark-icon {
+            @apply inline-block;          
+          }
+          .white-icon {
+            @apply hidden;          
+          }
+        }
+      }
+      
+      .logo {
+        .l-dark {
+          @apply inline-block;
+        }
+        .l-light {
+          @apply hidden;
+        }
+    }
+  }
+}
+
+.logo {
+  @apply font-semibold text-[24px] me-3.75 pt-0 pb-0 tracking-[1px] leading-17;
+}
+
+@media (min-width: 1025px) {
+  #topnav {
+    .navigation-menu {
+      > li {
+        .submenu{
+          &.megamenu {
+            @apply w-279!;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 992px) {
+  #topnav {
+    .navigation-menu {
+      > li {
+        .submenu{
+          &.megamenu {
+            @apply w-234!;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  #topnav {
+    .navigation-menu {
+      @apply flex flex-wrap justify-center;
+      
+      &.nav-right {
+        > li {
+          &:last-child {
+            @apply me-0;
+            > .sub-menu-item {
+              @apply pe-0!;
+            }
+          }
+        }
+      }
+
+      &.nav-light {
+        > li {
+          &:first-child {
+            @apply ms-0;
+          }
+        }
+      }
+
+      > li {
+        .submenu {
+          transition: all 0.2s ease;
+          @apply absolute top-full inset-s-0 z-1000 py-3.75 px-0 list-none min-w-45 invisible opacity-0 mt-2.5 rounded-md bg-white dark:bg-slate-900 shadow-sm dark:shadow-gray-800;
+          li {
+            @apply relative ms-0;
+            a {
+              transition: all 0.3s;
+              @apply block py-2.5 px-5 clear-both whitespace-nowrap text-[14px] tracking-[0.04em] font-normal text-slate-900 dark:text-white leading-4.25;
+              &:hover {
+                @apply text-primary! dark:text-primary!;
+              }
+            }
+            ul {
+              @apply list-none ps-0 m-0;
+            }
+          }
+          &.megamenu {
+            @apply whitespace-nowrap inset-s-1/2 ltr:-translate-x-1/2 rtl:translate-x-1/2 fixed top-auto flex;
+            > li {
+              @apply overflow-hidden align-top w-1/5;
+              .submenu {
+                @apply inset-s-full inset-e-full top-0 ms-2.5 -mt-px;
+              }
+            }
+          }
+          > li {
+            .submenu {
+              @apply inset-s-[101%] top-0 ms-2.5 -mt-px;
+            }
+          }
+        }
+        > a {
+          @apply py-6.25 min-h-15.5;
+        }
+        &:hover {
+          > .menu-arrow {
+            @apply border-t-transparent! border-e-primary! border-b-primary! border-s-transparent!;
+          }
+        }
+        &:hover, 
+        &.active{
+          > a {
+            @apply text-primary! dark:text-primary!;
+          }
+        }
+        &.last-elements{
+          .submenu {
+            @apply inset-s-auto inset-e-0 before:inset-s-auto before:inset-e-2.5;
+            > li{
+              &.has-submenu {
+                .submenu {
+                  @apply inset-s-auto inset-e-full ms-0 me-2.5;
+                }
+              }
+            }
+          }
+        }
+      }
+      &.nav-light {
+        > li {
+          > a {
+            @apply text-white/50;
+          }
+          &.active {
+            > a {
+              @apply text-white!;
+            }
+          }
+          &:hover {
+            > .menu-arrow {
+              @apply border-t-transparent! border-e-white! border-b-white! border-s-transparent!;
+            }
+            > a {
+              @apply text-white!;
+            }
+          }
+        }
+        .has-submenu {
+          .menu-arrow {
+            @apply border-t-transparent! border-e-white/50! border-b-white/50! border-s-transparent!;
+          }
+          &.active {
+            .menu-arrow {
+              @apply border-t-transparent! border-e-white! border-b-white! border-s-transparent!;
+            }
+          }
+        }
+      }
+    }
+    .buy-button {
+      @apply ps-3.75 ms-3.75;
+      .search-dropdown {
+        .dark-icon {
+          @apply hidden;          
+        }
+        .white-icon {
+          @apply inline-block;          
+        }
+      }
+    }
+    .navbar-toggle {
+      @apply hidden;
+    }
+    #navigation {
+      @apply block!;
+    }
+    &.scroll {
+      @apply top-0;
+      .navigation-menu {
+        > li {
+          > a {
+            @apply py-5;
+          }
+        }
+      }
+    }
+    &.scroll-active {
+      .navigation-menu {
+        > li {
+          > a {
+            @apply py-6.25;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  #topnav {
+    @apply bg-white dark:bg-slate-900 shadow-sm dark:shadow-gray-800 min-h-18.5;
+    .logo {
+      .l-dark {
+        @apply inline-block!;
+      }
+      .l-light {
+        @apply hidden!;
+      }
+    }
+    .container {
+      @apply w-auto;
+    }
+    #navigation {
+      @apply max-h-100 shadow;
+    }
+    .navigation-menu {
+      @apply float-none!;
+      > li {
+        @apply float-none!;
+        .submenu {
+          @apply hidden list-none ps-5 m-0;
+          li {
+            a {
+              transition: all 0.3s;
+              @apply block! relative! py-1.75! px-3.75! tracking-[0.04em]! text-slate-900! dark:text-white!;
+            }
+          }
+          &.megamenu {
+            li {
+              .megamenu-head {
+                @apply py-1.75 px-3.75;
+              }
+            }
+            > li {
+              > ul {
+                @apply list-none ps-0;
+                > li {
+                  > span {
+                    @apply block relative py-2.5 px-3.75 uppercase text-xs tracking-[2px] text-slate-200;
+                  }
+                }
+              }
+            }
+          }
+          &.open {
+            @apply block;
+          }
+          .submenu {
+            @apply hidden list-none;
+            &.open {
+              @apply block;
+            }
+          }
+        }
+        > a {
+          @apply text-slate-900 dark:text-white py-2.5 px-5 after:absolute after:inset-e-3.75;
+        }
+        > a:hover,
+        .submenu li a:hover,
+        &.has-submenu.open > a {
+          @apply text-primary;
+        }
+      }
+    }
+    .menu-extras {
+      .menu-item {
+        @apply border-gray-200 dark:border-gray-700;
+      }
+    }
+    .navbar-header {
+      @apply float-start;
+    }
+
+    .buy-button {
+      .login-btn-primary,
+      .btn-icon-dark {
+        @apply inline-block!;
+      }
+      .login-btn-light,
+      .btn-icon-light {
+        @apply hidden;
+      }
+      .search-dropdown {
+        .dark-icon {
+          @apply inline-block;          
+        }
+        .white-icon {
+          @apply hidden;          
+        }
+      }
+    }
+    .has-submenu {
+      .submenu {
+        .submenu-arrow {
+          @apply ltr:rotate-45 absolute inset-e-5 top-3;
+        }
+      }
+      &.active {
+        a {
+          @apply text-primary;
+        }
+      }
+    }
+  }
+  
+  #navigation {
+    @apply absolute top-18.5 inset-s-0 w-full hidden h-auto bg-white dark:bg-slate-900 overflow-auto;
+    &.open {
+      @apply block overflow-y-auto;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #topnav {
+    .navigation-menu {
+      .has-submenu {
+        .menu-arrow {
+          @apply inset-e-2 top-4;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #topnav {
+    .navigation-menu {
+      > li{
+        &.has-submenu{
+          &:hover {
+            > .submenu {
+              @apply visible opacity-100 mt-0;
+              > li{
+                &.has-submenu{
+                  &:hover {
+                    > .submenu {
+                      @apply visible opacity-100 ms-0 me-0;
+                      > li{
+                        &:hover {
+                          > .submenu {
+                            @apply visible opacity-100 ms-0 me-0;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .navbar-toggle {
+    @apply block;
+  }
+}
+
+@media (max-width: 425px) {
+  #topnav {
+    .buy-menu-btn {
+      @apply block! my-0! mx-2.5! py-2.5! px-5!;
+      .dropdown {
+        .dropdown-menu{
+          &.show {
+            transform: translate3d(0px, -54px, 0px) !important;
+          }
+        }
+      }
+    }
+  }
+}
+.tagline {
+    @apply absolute w-full z-99 text-sm py-3.25 px-0;
+}
+@media screen and (max-width: 575px) {
+    .tagline {
+        @apply hidden;
+    }
+    .tagline-height {
+        @apply top-0! 
+    }
+}
+@media (min-width: 576px) {
+  .tagline-height {
+    @apply top-11.75!;
+  }
+}
+  
+.sidebar-nav {
+    @apply py-3.75 px-0;
+        > .navbar-item {
+          @apply py-0.75 px-3.75;
+          .navbar-link {
+            @apply text-[15px] font-semibold;
+            .navbar-icon {
+              @apply text-lg me-1.5;
+            }
+          }
+          &:hover,
+          &.active {
+            .navbar-link {
+              @apply text-primary;
+            }
+          }
+    }
+    li{
+      &.active {
+        a {
+          @apply text-primary;
+        }
+      }
+      &.account-menu.active,
+      &.account-menu:hover{
+        .navbar-link {
+          @apply text-primary! dark:text-white!;
+        }
+      }
+    }
+}

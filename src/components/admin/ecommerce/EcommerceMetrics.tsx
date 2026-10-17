@@ -16,21 +16,21 @@ const metricItems = [
     key: "totalCategories",
     value: "",
     icon: GridIcon,
-    href: "/admin/dashboard",
+    href: "/admin/categories",
   },
   {
     key: "totalDestination",
     value: "",
     icon: MapPinIcon,
-    href: "/admin/dashboard",
+    href: "/admin/destinations",
   },
   {
     key: "totalPackages",
     value: "",
     icon: BoxIconLine,
-    href: "/admin/dashboard",
+    href: "/admin/packages",
   },
-  { key: "carRental", value: "", icon: CarIcon, href: "/admin/dashboard" },
+  { key: "carRental", value: "", icon: CarIcon, href: "/admin/car-rental" },
 ] as const;
 
 export const EcommerceMetrics = () => {

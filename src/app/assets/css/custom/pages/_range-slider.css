@@ -1,0 +1,48 @@
+/*********************************/
+/*         Testimonial           */
+/*===============================*/
+.range-slider {
+	@apply relative w-full m-auto text-center;
+	
+	svg,
+	input[type=range] {
+		-webkit-appearance: none;
+		@apply absolute inset-s-0 bottom-0 w-full;
+
+		&::-webkit-slider-runnable-track {
+			animate: 0.2s;
+			@apply size-1 cursor-pointer bg-slate-200 dark:bg-slate-800 rounded-sm shadow-none border-0;
+		}
+
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			@apply relative z-1 shadow-sm dark:shadow-gray-800 border border-primary size-3 rounded-full cursor-pointer bg-primary -mt-1;
+		}
+		
+		&::-ms-track {
+			animate: 0.2s;
+			@apply size-1 cursor-pointer bg-transparent rounded-sm border-transparent text-transparent;
+		}
+		
+		&::-ms-fill-lower,
+		&::-ms-fill-upper {
+			@apply bg-primary rounded-sm shadow-none border-0;
+		}
+		
+		&::-ms-thumb {
+			@apply relative z-1 shadow-sm dark:shadow-gray-800 border border-primary size-3 rounded-full cursor-pointer bg-primary;
+		}
+	}
+
+	input[type=number] {
+		-moz-appearance: textfield;
+		@apply bg-transparent focus-visible:outline-none;
+
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+		}
+	}
+}
+
+

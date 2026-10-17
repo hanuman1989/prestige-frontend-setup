@@ -7,11 +7,19 @@ import contactInquiryAPI from "./contactInquiry";
 import destinationAPI from "./admin/destinations";
 import packageAPI from "./admin/packages";
 import carRentalAPI from "./admin/carRental";
+import frontendDestinationsAPI from "./frontendDestinations";
+import frontendCategoriesAPI from "./frontendCategories";
+import frontendPackagesAPI from "./frontendPackages";
+import frontendCarRentalAPI from "./frontendCarRental";
 
 const APIs = {
   frontend: {
     auth: frontendAuthAPI,
     contactInquiry: contactInquiryAPI,
+    destination: frontendDestinationsAPI,
+    category: frontendCategoriesAPI,
+    package: frontendPackagesAPI,
+    carRental: frontendCarRentalAPI,
   },
   admin: {
     Adminusers: adminUsersAPI,

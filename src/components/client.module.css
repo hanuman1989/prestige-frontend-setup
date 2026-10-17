@@ -1,0 +1,13 @@
+.slider {
+  width: 100%;
+  min-width: 0;
+  --swiper-pagination-bullet-inactive-color: currentColor;
+}
+
+/* Keep pagination below the slides, overriding Swiper's absolute positioning. */
+.slider > :global(.swiper-pagination) {
+  position: sticky;
+  margin-top: 10px;
+  padding-block: 0.25rem;
+  transform: none;
+}

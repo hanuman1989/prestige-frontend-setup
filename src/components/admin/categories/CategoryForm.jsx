@@ -73,6 +73,7 @@ export default function CategoryForm({ category = null }) {
       meta_keyword: category?.meta_keyword ?? "",
       meta_description: category?.meta_description ?? "",
       image: [],
+      is_most_popular: category?.is_most_popular ?? false,
       status: category ? (category.status ? "1" : "0") : "1",
     },
     mode: "onTouched",
@@ -121,6 +122,7 @@ export default function CategoryForm({ category = null }) {
     data.append("meta_keyword", values.meta_keyword.trim());
     data.append("meta_description", values.meta_description.trim());
     data.append("status", values.status);
+    data.append("is_most_popular", values.is_most_popular ? "1" : "0");
     const file = values.image?.[0];
     if (file) data.append("image", file);
     try {
@@ -146,6 +148,7 @@ export default function CategoryForm({ category = null }) {
         "image",
         "description",
         "status",
+        "is_most_popular",
       ];
       Object.entries(failure.errors ?? {}).forEach(([name, messages]) => {
         const message = Array.isArray(messages)
@@ -453,6 +456,55 @@ export default function CategoryForm({ category = null }) {
                   Active categories are visible on the website.
                 </p>
                 <FieldError name="status" error={errors.status} />
+              </div>
+              <div className="py-3">
+                <div className="flex items-center justify-between gap-4">
+                  <label htmlFor="category-popular" className={labelClasses}>
+                    Most popular <span className="sr-only">(optional)</span>
+                  </label>
+                  <div className="relative h-7 w-19 shrink-0">
+                    <input
+                      {...register("is_most_popular")}
+                      id="category-popular"
+                      type="checkbox"
+                      role="switch"
+                      aria-required="false"
+                      aria-invalid={Boolean(errors.is_most_popular)}
+                      aria-describedby={`category-popular-hint${errors.is_most_popular ? " category-is_most_popular-error" : ""}`}
+                      className="peer absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 rounded-full bg-gray-200 transition peer-checked:bg-[#004bff] peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-blue-600 dark:bg-gray-700"
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="absolute start-1 top-1 size-5 rounded-full bg-white shadow-sm transition peer-checked:translate-x-12 rtl:peer-checked:-translate-x-12"
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="absolute end-3 top-1 text-xs leading-5 text-[#53699b] peer-checked:hidden dark:text-gray-300"
+                    >
+                      OFF
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="absolute start-3 top-1 hidden text-xs leading-5 text-white peer-checked:block"
+                    >
+                      ON
+                    </span>
+                  </div>
+                </div>
+                <p
+                  id="category-popular-hint"
+                  className="mt-2 text-xs text-[#53699b] dark:text-gray-400"
+                >
+                  Feature this category in the most popular section.
+                </p>
+                <FieldError
+                  name="is_most_popular"
+                  error={errors.is_most_popular}
+                />
               </div>
             </Card>
           </div>

@@ -455,7 +455,7 @@ test("shared upload preserves files after blur, supports replacement/discard, an
         }
       },
     },
-    "next/image": { __esModule: true, default: () => null },
+    "@/components/common/ImagePreview": { __esModule: true, default: () => null, ImagePreview: () => null, getImageUrl: (value) => value },
   }, { URL: class extends URL { static createObjectURL() { return `blob:preview-${++nextUrl}`; } static revokeObjectURL(url) { revoked.push(url); } } }).default;
   let tree;
   function render() {

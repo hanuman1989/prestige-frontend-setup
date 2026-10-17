@@ -96,6 +96,7 @@ const AppHeader: React.FC = () => {
               height={32}
               className="dark:hidden"
               src="/images/logo/logo.png"
+              loading="eager"
               alt="Logo"
             />
             <Image
@@ -103,6 +104,7 @@ const AppHeader: React.FC = () => {
               height={32}
               className="hidden dark:block"
               src="/images/logo/logo.png"
+              loading="eager"
               alt="Logo"
             />
           </Link>

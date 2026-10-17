@@ -1,0 +1,37 @@
+/*********************************/
+/*         Datepicker           */
+/*===============================*/
+.qs-datepicker-container {
+    @apply shadow-sm shadow-gray-100 dark:shadow-gray-800 bg-white dark:bg-slate-900 border-gray-100 dark:border-gray-800;
+}
+.qs-datepicker-container .qs-controls {
+    @apply bg-gray-50 dark:bg-slate-800;
+}
+.qs-datepicker-container .qs-controls .qs-month-year {
+    @apply font-semibold text-[15px] dark:text-white;
+}
+.qs-datepicker-container .qs-controls .qs-month-year:hover {
+    @apply border-b rounded-md outline-inherit border-gray-100;
+}
+
+.qs-squares .qs-square {
+    @apply text-[15px] size-8.5 text-slate-400;
+}
+.qs-squares .qs-square:not(.qs-empty):not(.qs-disabled):not(.qs-day):not(.qs-active):hover,
+.qs-squares .qs-square.qs-current {
+    text-decoration: none;
+    @apply bg-primary text-white font-semibold;
+}
+.qs-squares .qs-day {
+    @apply font-normal text-slate-900 dark:text-white;
+}
+
+.qs-active, .qs-range-end, .qs-range-start {
+    text-decoration: none;
+    @apply bg-primary! text-white! font-semibold!;
+}
+
+.qs-squares .qs-square:not(.qs-empty):not(.qs-disabled):not(.qs-day):not(.qs-active):hover, 
+.qs-squares .qs-square.qs-current {
+    @apply rounded-md!;
+}
